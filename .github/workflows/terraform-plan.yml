@@ -41,5 +41,5 @@ jobs:
         # On push to "feature", build or change infrastructure according to Terraform configuration files
       - name: Terraform Plan for AWS Infra
         #      if: github.ref == 'refs/heads/feature' && github.event_name == 'push'
-        run: terraform -chdir=tf/aws/ plan --var-file="../../tfvars/aws.tfvars" -auto-approve
+        run: terraform -chdir=tf/aws/ plan --var-file="../../tfvars/aws.tfvars"
 
