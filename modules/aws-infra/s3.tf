@@ -7,7 +7,7 @@ resource "aws_s3_bucket" "root_storage_bucket" {
   }
   tags = merge(tomap({"Name":"${var.prefix}-rootbucket"}),var.tags)
 }
-
+#
 terraform {
   required_providers {
     databricks = {
