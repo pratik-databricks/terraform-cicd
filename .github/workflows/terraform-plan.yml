@@ -1,0 +1,45 @@
+name: 'Terraform Plan for resources'
+
+on:
+  push:
+    branches:
+      - "feature"
+
+env:
+  AWS_REGION : "us-west-2"
+permissions:
+  id-token: write
+  contents: read
+
+jobs:
+  terraform:
+    name: 'Terraform Plan for resources'
+    runs-on: ubuntu-latest
+    environment: test
+
+
+    steps:
+      # Checkout the repository to the GitHub Actions runner
+      - name: Checkout
+        uses: actions/checkout@v3
+
+      #     Install the latest version of Terraform CLI and configure the Terraform CLI configuration file with AWS assume role OIDC
+      - name: Setup Terraform
+        uses: hashicorp/setup-terraform@v1
+
+      - name: configure aws credentials
+        uses: aws-actions/configure-aws-credentials@v1
+        with:
+          role-to-assume: arn:aws:iam::826763667205:role/SSE2383-iam-pratik-s3-role-for-ec2
+          role-session-name: tfrolesession
+          aws-region: ${{ env.AWS_REGION }}
+
+      # Initialize a new or existing Terraform working directory by creating initial files, loading any remote state, downloading modules, etc.
+      - name: Terraform Init for AWS Infra
+        run: terraform -chdir=tf/aws/ init
+
+        # On push to "feature", build or change infrastructure according to Terraform configuration files
+      - name: Terraform Plan for AWS Infra
+        #      if: github.ref == 'refs/heads/feature' && github.event_name == 'push'
+        run: terraform -chdir=tf/aws/ plan --var-file="../../tfvars/aws.tfvars" -auto-approve
+
