@@ -8,12 +8,13 @@ resource "aws_s3_bucket" "root_storage_bucket" {
   tags = merge(tomap({"Name":"${var.prefix}-rootbucket"}),var.tags)
 }
 
-bucket = "${var.prefix}-rootbucket-987654321"
-acl    = "private"
-versioning {
-  enabled = false
-}
-tags = merge(tomap({"Name":"${var.prefix}-rootbucket"}),var.tags)
+resource "aws_s3_bucket" "root_storage_bucket-1" {
+  bucket = "${var.prefix}-rootbucket-987654321"
+  acl    = "private"
+  versioning {
+    enabled = false
+  }
+  tags = merge(tomap({"Name":"${var.prefix}-rootbucket"}),var.tags)
 }
 #
 terraform {
