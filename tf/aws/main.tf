@@ -6,7 +6,7 @@ terraform {
 
     bucket = "tf-db-bucket"
     key    = "statefiles/aws-infra.tfstate"
-    dynamodb_table = "tb-db-table"
+    dynamodb_table = "tf-db-table"
     region = "us-west-2"
   }
 }
