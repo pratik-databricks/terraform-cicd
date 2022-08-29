@@ -1,6 +1,6 @@
 
 resource "aws_s3_bucket" "root_storage_bucket" {
-  bucket = "${var.prefix}-rootbucket"
+  bucket = "${var.prefix}-rootbucket-123456789"
   acl    = "private"
   versioning {
     enabled = false
